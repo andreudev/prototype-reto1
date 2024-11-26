@@ -45,7 +45,7 @@ function CardInfo({ info }: Props) {
             {info.descripcion}
           </Text>
           <Text color="#3775B5" fontSize="2xl" fontWeight={400}>
-            ${info.precio}
+            $ {info.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </Text>
         </Stack>
         <Stack

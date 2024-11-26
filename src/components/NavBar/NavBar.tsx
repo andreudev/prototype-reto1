@@ -1,9 +1,13 @@
-import { Grid, GridItem, Image } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import "./styles.css";
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../images/logo.svg";
 
-const NavBar = () => {
+type Props = {
+  openDrawer: () => void;
+};
+
+const NavBar = ({ openDrawer }: Props) => {
   return (
     <Grid
       templateRows="1fr"
@@ -34,7 +38,7 @@ const NavBar = () => {
         <ul className="list">
           <li>Crear Cuenta</li>
           <li>Ingresar</li>
-          <li>Mis compras</li>
+          <Button onClick={openDrawer}>Carrito</Button>
         </ul>
       </GridItem>
     </Grid>
