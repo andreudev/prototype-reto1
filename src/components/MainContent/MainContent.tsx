@@ -4,9 +4,10 @@ import { Product } from "../../types";
 
 type Props = {
   data: Product[];
+  addToCart: (product: Product) => void;
 };
 
-function MainContent({ data }: Props) {
+function MainContent({ data, addToCart }: Props) {
   return (
     <SimpleGrid
       columns={[1, 1, 1, 1, 2]}
@@ -18,7 +19,11 @@ function MainContent({ data }: Props) {
       p={4} // Espaciado interno para separación visual
     >
       {data.map((product) => (
-        <CardInfo key={product.id_producto} info={product} />
+        <CardInfo
+          key={product.id_producto}
+          info={product}
+          addToCart={addToCart}
+        />
       ))}
     </SimpleGrid>
   );

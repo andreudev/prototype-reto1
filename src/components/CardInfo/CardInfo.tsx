@@ -16,9 +16,10 @@ import "./style.css";
 
 type Props = {
   info: Product;
+  addToCart: (product: Product) => void;
 };
 
-function CardInfo({ info }: Props) {
+function CardInfo({ info, addToCart }: Props) {
   return (
     <Card maxW="sm" w="450px" h="auto">
       {" "}
@@ -73,11 +74,11 @@ function CardInfo({ info }: Props) {
             Comentarios
           </Button>
         </Stack>
-        <Stack direction="row" justify="space-between" p="4">
-          <Text color="gray.500" fontSize="sm">
+        <Stack direction="row" justify="space-between" p="16px 16px 10px">
+          <Text color="gray.500" fontSize="sm" fontWeight={500}>
             Envío gratis
           </Text>
-          <Text color="gray.500" fontSize="sm">
+          <Text color="gray.500" fontSize="sm" fontWeight={500}>
             3 cuotas sin interés
           </Text>
         </Stack>
@@ -88,7 +89,12 @@ function CardInfo({ info }: Props) {
           <Button variant="solid" colorScheme="blue" bgColor="#3775B5">
             Comprar
           </Button>
-          <Button variant="ghost" colorScheme="blue" color="#3775B5 ">
+          <Button
+            variant="ghost"
+            colorScheme="blue"
+            color="#3775B5 "
+            onClick={() => addToCart(info)}
+          >
             Agregar al carrito
           </Button>
         </ButtonGroup>

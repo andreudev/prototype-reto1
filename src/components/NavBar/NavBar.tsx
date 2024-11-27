@@ -1,7 +1,8 @@
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import "./styles.css";
 import SearchBar from "../SearchBar/SearchBar";
-import Logo from "../../images/logo.svg";
+import Logo from "../../images/logo.png";
+import { FaCartShopping } from "react-icons/fa6";
 
 type Props = {
   openDrawer: () => void;
@@ -16,7 +17,7 @@ const NavBar = ({ openDrawer }: Props) => {
       className="container"
     >
       <GridItem colSpan={1} className="grid-item" textAlign="center">
-        <Image src={Logo} alt="logo" h={50} p={1} />
+        <Image src={Logo} alt="logo" h={50} p={[1, 2]} />
       </GridItem>
       <GridItem
         colSpan={1}
@@ -38,7 +39,9 @@ const NavBar = ({ openDrawer }: Props) => {
         <ul className="list">
           <li>Crear Cuenta</li>
           <li>Ingresar</li>
-          <Button onClick={openDrawer}>Carrito</Button>
+          <Button onClick={openDrawer}>
+            <FaCartShopping />
+          </Button>
         </ul>
       </GridItem>
     </Grid>

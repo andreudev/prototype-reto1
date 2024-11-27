@@ -10,6 +10,7 @@ export type Product = {
   descripcion: string;
   precio: number;
   url: string;
+  stock: number;
 };
 
 export type Category = {

@@ -7,22 +7,33 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Input,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
+import { Product } from "../../types"; // Asegúrate de tener el tipo Product definido
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   btnRef: React.RefObject<HTMLButtonElement>;
-  onOpen: () => void;
+  cartItems: Product[]; // Lista de productos en el carrito
+  removeFromCart: (id: number) => void; // Función para eliminar productos del carrito
 };
 
-function DrawerCarrrito({ isOpen, onClose, btnRef, onOpen }: Props) {
+function DrawerCarrrito({
+  isOpen,
+  onClose,
+  btnRef,
+  cartItems,
+  removeFromCart,
+}: Props) {
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.precio * item.stock,
+    0
+  );
+
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -32,17 +43,59 @@ function DrawerCarrrito({ isOpen, onClose, btnRef, onOpen }: Props) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Carrito de compras</DrawerHeader>
 
           <DrawerBody>
-            <Input placeholder="Type here..." />
+            {cartItems.length === 0 ? (
+              <Text>No tienes productos en el carrito.</Text>
+            ) : (
+              <Stack spacing={4}>
+                {cartItems.map((item) => (
+                  <Stack
+                    key={item.id_producto}
+                    direction="row"
+                    justify="space-between"
+                    align="center"
+                  >
+                    <Stack>
+                      <Text fontWeight="bold">{item.nombre}</Text>
+                      <Text>Cantidad: {item.stock}</Text>
+                      <Text>
+                        Precio: $
+                        {item.precio
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                      </Text>
+                    </Stack>
+                    <Button
+                      size="sm"
+                      colorScheme="red"
+                      onClick={() => removeFromCart(item.id_producto)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Stack>
+                ))}
+              </Stack>
+            )}
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Stack direction="column" width="100%">
+              <Text fontWeight="bold">
+                Total: ${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </Text>
+              <Button
+                colorScheme="blue"
+                isDisabled={cartItems.length === 0}
+                onClick={() => alert("Ir a pagar")}
+              >
+                Proceder al pago
+              </Button>
+              <Button variant="outline" onClick={onClose}>
+                Cerrar
+              </Button>
+            </Stack>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
