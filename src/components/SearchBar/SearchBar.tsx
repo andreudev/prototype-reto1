@@ -6,7 +6,7 @@ type Props = {};
 const SearchBar = (props: Props) => {
   return (
     <InputGroup>
-      <Input type="tel" placeholder="Buscar producto" bg="white" />
+      <Input type="text" placeholder="Buscar producto" bg="white" />
       <InputRightElement pointerEvents="none">
         <IoIosSearch />
       </InputRightElement>

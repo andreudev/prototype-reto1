@@ -5,8 +5,9 @@ import SideNav from "../components/SideNav/SideNav";
 import { Product, Category } from "../types";
 import useHttpData2 from "../hooks/useHttpData2";
 import DrawerCarrrito from "../components/DrawerCarrito/DrawerCarrrito";
-import React, { useState } from "react";
+import { useState } from "react";
 import "./style.css";
+import React from "react";
 
 function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -17,9 +18,13 @@ function Home() {
       : `http://localhost:3000/products/filter/categoria?categoria=${selectedCategory}`;
   const { data: categoryData } = useHttpData2<Category>(urlCategory);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef<HTMLButtonElement>(null);
   const { data } = useHttpData2<Product>(url);
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const btnRef = React.useRef<HTMLButtonElement>(null);
+
+  // const searchApi = (search: string) => {
+  //   const url = `http://localhost:3000/products/filter/nombre?nombre=${search}`;
+  // };
 
   // Función para agregar un producto al carrito
   const addToCart = (product: Product) => {
@@ -97,9 +102,9 @@ function Home() {
       <DrawerCarrrito
         isOpen={isOpen}
         onClose={onClose}
-        btnRef={btnRef}
         cartItems={cartItems}
         removeFromCart={removeFromCart}
+        btnRef={btnRef}
       />
     </>
   );

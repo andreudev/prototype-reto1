@@ -1,19 +1,19 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "./pages/Home.tsx";
+import { BrowserRouter, Routes, Route } from "react-router"; // Corrige la importación de 'react-router-dom'
+import App from "./App.tsx"; // Asegúrate de que App esté configurado correctamente para manejar las rutas internas
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <StrictMode>
     <ChakraProvider>
-      <StrictMode>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/app" element={<App />} />
+          {/* Ruta principal */}
+          <Route path="/" element={<App />} />{" "}
+          {/* App maneja la lógica de rutas internas */}
         </Routes>
-      </StrictMode>
+      </BrowserRouter>
     </ChakraProvider>
-  </BrowserRouter>
+  </StrictMode>
 );
